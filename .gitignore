@@ -1,0 +1,3 @@
+douban/spiders/__pycache__/*
+douban.jsonl
+douban_old.jsonl

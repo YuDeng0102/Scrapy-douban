@@ -12,8 +12,22 @@ BOT_NAME = "douban"
 SPIDER_MODULES = ["douban.spiders"]
 NEWSPIDER_MODULE = "douban.spiders"
 
-ADDONS = {}
+# 启用Redis调度器
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 
+# 确保所有爬虫使用相同的去重过滤器
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+
+# 启用Redis管道
+ITEM_PIPELINES = {
+    'scrapy_redis.pipelines.RedisPipeline': 300,
+    "douban.pipelines.DoubanPipeline": 400,
+}
+
+# Redis配置（请根据实际情况修改）
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+# REDIS_URL = 'redis://user:pass@hostname:port'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "douban (+http://www.yourdomain.com)"
@@ -56,12 +70,6 @@ RANDOMIZE_DOWNLOAD_DELAY =True
 #    "scrapy.extensions.telnet.TelnetConsole": None,
 #}
 
-# Configure item pipelines
-# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "douban.pipelines.DoubanPipeline": 300,
-#}
-
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
@@ -88,5 +96,3 @@ FEED_EXPORT_ENCODING = "utf-8"
 USER_AGENT = (
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 )
-
-
