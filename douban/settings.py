@@ -25,8 +25,11 @@ ITEM_PIPELINES = {
 }
 
 # Redis配置（请根据实际情况修改）
-REDIS_HOST = 'localhost'
+REDIS_HOST = '120.53.106.5'
 REDIS_PORT = 6379
+REDIS_PARAMS = {
+    'password': '041135sz',
+}
 # REDIS_URL = 'redis://user:pass@hostname:port'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
